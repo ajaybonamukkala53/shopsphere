@@ -1,0 +1,96 @@
+const products = [
+  {
+    title: "iPhone 15",
+    price: 999,
+    image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569",
+    description: "Latest Apple Smartphone",
+    category: "Mobiles",
+  },
+  {
+    title: "Nike Shoes",
+    price: 120,
+    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+    description: "Comfortable Running Shoes",
+    category: "Fashion",
+  },
+  {
+    title: "Gaming Laptop",
+    price: 1500,
+    image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302",
+    description: "High Performance Gaming Laptop",
+    category: "Electronics",
+  },
+  {
+  title: "Samsung Galaxy S24",
+  price: 899,
+  image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf",
+  description: "Samsung flagship smartphone",
+  category: "Mobiles",
+},
+{
+  title: "OnePlus 13",
+  price: 799,
+  image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97",
+  description: "Fast and smooth performance",
+  category: "Mobiles",
+},
+{
+  title: "MacBook Air M4",
+  price: 1499,
+  image: "https://images.unsplash.com/photo-1517336714739-489689fd1ca8",
+  description: "Apple laptop with M4 chip",
+  category: "Electronics",
+},
+{
+  title: "Dell XPS 13",
+  price: 1299,
+  image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853",
+  description: "Premium ultrabook laptop",
+  category: "Electronics",
+},
+{
+  title: "Apple Watch Series 10",
+  price: 499,
+  image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+  description: "Smart fitness watch",
+  category: "Electronics",
+},
+{
+  title: "Sony WH-1000XM5",
+  price: 399,
+  image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e",
+  description: "Noise cancelling headphones",
+  category: "Electronics",
+},
+{
+  title: "Adidas Hoodie",
+  price: 89,
+  image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7",
+  description: "Comfortable winter hoodie",
+  category: "Fashion",
+},
+{
+  title: "Levi's Jeans",
+  price: 79,
+  image: "https://images.unsplash.com/photo-1542272604-787c3835535d",
+  description: "Classic blue denim jeans",
+  category: "Fashion",
+},
+{
+  title: "Puma Running Shoes",
+  price: 110,
+  image: "https://images.unsplash.com/photo-1543508282-6319a3e2621f",
+  description: "Lightweight running shoes",
+  category: "Fashion",
+},
+{
+  title: "JBL Flip 6",
+  price: 149,
+  image: "https://images.unsplash.com/photo-1589003077984-894e133dabab",
+  description: "Portable Bluetooth speaker",
+  category: "Electronics",
+},
+ 
+];
+
+module.exports = products;
