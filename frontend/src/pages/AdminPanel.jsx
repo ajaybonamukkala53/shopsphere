@@ -156,7 +156,7 @@ function AdminPanel() {
 
       const { data } =
         await axios.post(
-          "http://localhost:5000/api/upload",
+          `${import.meta.env.VITE_API_URL}/api/upload`,
           formData,
           {
             headers: {
@@ -211,7 +211,7 @@ function AdminPanel() {
 
       const { data } =
         await axios.post(
-          "http://localhost:5000/api/upload",
+          `${import.meta.env.VITE_API_URL}/api/upload`,
           formData,
           {
             headers: {
@@ -250,9 +250,7 @@ alert("Video Uploaded Successfully ✅");
       try {
 
         await axios.delete(
-
-          `http://localhost:5000/api/products/${id}`
-
+          `${import.meta.env.VITE_API_URL}/api/products/${id}`
         );
 
         alert(

@@ -16,6 +16,8 @@ import AdminPanel from "./pages/AdminPanel";
 import AdminOrders from "./pages/AdminOrders";
 import OtpLogin from "./pages/OtpLogin";
 import PaymentSuccess from "./pages/PaymentSuccess";
+import EditProduct from "./pages/EditProduct";
+import AddProduct from "./pages/AddProduct";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
@@ -106,6 +108,24 @@ function App() {
           element={
             <AdminRoute>
               <AdminDashboard />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/edit-product/:id"
+          element={
+            <AdminRoute>
+              <EditProduct />
+            </AdminRoute>
+          }
+        />
+
+        <Route
+          path="/admin/add-product"
+          element={
+            <AdminRoute>
+              <AddProduct />
             </AdminRoute>
           }
         />

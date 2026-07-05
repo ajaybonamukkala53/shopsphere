@@ -38,22 +38,8 @@ router.post("/", async (req, res) => {
 
       }
 
-      const quantity =
-        item.quantity || 1;
-
-      if (
-        product.stock <
-        quantity
-      ) {
-
-        return res.status(400).json({
-          success: false,
-          message: `${product.title} Out Of Stock`,
-        });
-
-      }
-
     }
+    
     
 
     // CREATE ORDER

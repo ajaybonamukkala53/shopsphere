@@ -69,7 +69,7 @@ function AdminDashboard() {
     async (id) => {
       try {
         await axios.delete(
-          `http://localhost:5000/api/products/${id}`
+          `${import.meta.env.VITE_API_URL}/api/products/${id}`
         );
 
         alert(
@@ -143,9 +143,16 @@ function AdminDashboard() {
 
       <div className="max-w-7xl mx-auto p-10">
 
-        <h1 className="text-5xl font-bold text-center mb-10">
-          Admin Dashboard 📊
-        </h1>
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4 border-b border-gray-200 pb-5">
+          <h1 className="text-3xl md:text-4xl font-black text-gray-900">
+            Admin Dashboard 📊
+          </h1>
+          <Link to="/admin/add-product">
+            <button className="bg-flipkartBlue hover:bg-blue-600 text-white px-6 py-3 rounded-sm font-bold text-sm uppercase tracking-wider shadow transition-colors duration-200 cursor-pointer">
+              + Add New Product
+            </button>
+          </Link>
+        </div>
 
         {/* ANALYTICS CARDS */}
 
@@ -269,10 +276,10 @@ function AdminDashboard() {
                   <div className="flex gap-3 mt-5">
 
                     <Link
-                      to="/admin"
+                      to={`/admin/edit-product/${product._id}`}
                     >
-                      <button className="bg-blue-500 text-white px-5 py-3 rounded-xl">
-                        Manage
+                      <button className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-3 rounded-sm font-bold text-xs uppercase cursor-pointer">
+                        Edit
                       </button>
                     </Link>
 
@@ -282,7 +289,7 @@ function AdminDashboard() {
                           product._id
                         )
                       }
-                      className="bg-red-500 text-white px-5 py-3 rounded-xl"
+                      className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-sm font-bold text-xs uppercase cursor-pointer"
                     >
                       Delete
                     </button>

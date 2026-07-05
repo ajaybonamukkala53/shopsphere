@@ -53,6 +53,7 @@ router.post("/", async (req, res) => {
   lowStockAlert: Number(
     req.body.lowStockAlert || 5
   ),
+  status: req.body.status || "active",
 });
 
     const savedProduct =
@@ -100,6 +101,7 @@ router.put("/:id", async (req, res) => {
       Number(
         req.body.lowStockAlert
       );
+    product.status = req.body.status || product.status || "active";
 
     await product.save();
 

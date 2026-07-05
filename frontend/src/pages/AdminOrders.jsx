@@ -21,78 +21,17 @@ function AdminOrders() {
     }
   };
 
-  const updateStatus = async (
-    id,
-    status
-  ) => {
+  const updateStatus = async (id, status) => {
     try {
       await axios.put(
         `${import.meta.env.VITE_API_URL}/api/orders/status/${id}`,
-        {
-          status,
-        }
+        { status }
       );
-      const updateStatus = async (
-  id,
-  status
-) => {
-
-  try {
-
-    console.log(
-      "ID:",
-      id
-    );
-
-    console.log(
-      "STATUS:",
-      status
-    );
-
-    const res =
-      await axios.put(
-
-        `http://localhost:5000/api/orders/status/${id}`,
-
-        {
-          status,
-        }
-
-      );
-
-    console.log(
-      res.data
-    );
-
-    fetchOrders();
-
-  } catch (error) {
-
-    console.log(
-      error.response?.data
-    );
-
-    console.log(error);
-
-    alert(
-      "Update Failed ❌"
-    );
-
-  }
-
-};
-
       fetchOrders();
-
-      alert(
-        "Status Updated ✅"
-      );
+      alert("Status Updated ✅");
     } catch (error) {
       console.log(error);
-
-      alert(
-        "Update Failed ❌"
-      );
+      alert("Update Failed ❌");
     }
   };
 

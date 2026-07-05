@@ -8,7 +8,15 @@ export default {
   ],
 
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        flipkartBlue: "#2874f0",
+        flipkartOrange: "#fb641b",
+        flipkartYellow: "#ff9f00",
+        flipkartBg: "#f1f2f6",
+        flipkartGreen: "#388e3c",
+      },
+    },
   },
 
   plugins: [],
