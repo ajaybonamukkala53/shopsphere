@@ -33,40 +33,11 @@ app.use(
 );
 
 // =======================
-// DEBUG ENVIRONMENT
-// =======================
-
-console.log("================================");
-console.log("🚀 Server Starting...");
-console.log("PORT:", process.env.PORT);
-
-console.log(
-  "MONGO_URI Exists:",
-  !!process.env.MONGO_URI
-);
-
-if (process.env.MONGO_URI) {
-  console.log(
-    "MONGO_URI:",
-    process.env.MONGO_URI.substring(0, 45) + "..."
-  );
-}
-
-console.log(
-  "Cloudinary:",
-  process.env.CLOUDINARY_CLOUD_NAME
-);
-
-console.log("================================");
-
-// =======================
 // MONGODB CONNECTION
 // =======================
 
 mongoose
-  .connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 30000,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("================================");
     console.log("✅ MongoDB Connected Successfully");
@@ -74,34 +45,12 @@ mongoose
     console.log("Host:", mongoose.connection.host);
     console.log("================================");
   })
-  .catch((error) => {
-    console.log("================================");
-    console.log("❌ MongoDB Connection Failed");
-    console.log("================================");
-
-    console.log("Name:");
-    console.log(error.name);
-
-    console.log("Message:");
-    console.log(error.message);
-
-    console.log("Code:");
-    console.log(error.code);
-
-    console.log("CodeName:");
-    console.log(error.codeName);
-
-    console.log("Cause:");
-    console.dir(error.cause, {
-      depth: null,
-    });
-
-    console.log("Full Error:");
-    console.dir(error, {
-      depth: null,
-    });
-
-    console.log("================================");
+  .catch((err) => {
+    console.error("================================");
+    console.error("❌ MongoDB Connection Failed");
+    console.error(err.message);
+    console.error("================================");
+    process.exit(1);
   });
 
 // =======================
@@ -122,17 +71,41 @@ app.use("/api/upload", uploadRoutes);
 // =======================
 
 app.get("/", (req, res) => {
-  res.send("🚀 ShopSphere Backend Running");
+  res.status(200).send("🚀 ShopSphere Backend Running Successfully");
 });
 
 // =======================
-// SERVER
+// 404 HANDLER
+// =======================
+
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: "Route Not Found",
+  });
+});
+
+// =======================
+// GLOBAL ERROR HANDLER
+// =======================
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+
+  res.status(500).json({
+    success: false,
+    message: "Internal Server Error",
+  });
+});
+
+// =======================
+// START SERVER
 // =======================
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(
-    `🚀 Server Running on Port ${PORT}`
-  );
+  console.log("================================");
+  console.log(`🚀 Server Running on Port ${PORT}`);
+  console.log("================================");
 });
