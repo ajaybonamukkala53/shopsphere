@@ -1,65 +1,73 @@
 require("dotenv").config();
 
-const nodemailer =
-  require("nodemailer");
+const nodemailer = require("nodemailer");
 
-const sendEmail =
-  async (
+const sendEmail = async (
+  to,
+  subject,
+  html
+) => {
+  try {
 
-    to,
-    subject,
-    html
+    const transporter = nodemailer.createTransport({
 
-  ) => {
+      host: "smtp-relay.brevo.com",
 
-    try {
+      port: 587,
 
-      const transporter =
-        nodemailer.createTransport({
+      secure: false,
 
-          service: "gmail",
+      auth: {
 
-          auth: {
+        user: process.env.BREVO_EMAIL,
 
-            user:
-              process.env.EMAIL_USER,
+        pass: process.env.BREVO_SMTP_KEY,
 
-            pass:
-              process.env.EMAIL_PASS,
+      },
 
-          },
+      connectionTimeout: 30000,
 
-        });
+      greetingTimeout: 30000,
 
+      socketTimeout: 30000,
 
+    });
 
+    // Verify SMTP Connection
+    await transporter.verify();
 
-      await transporter.sendMail({
+    console.log("✅ Brevo SMTP Connected");
 
-        from:
-          `"ShopSphere" <${process.env.EMAIL_USER}>`,
+    const info = await transporter.sendMail({
 
-        to,
+      from: `"ShopSphere" <${process.env.FROM_EMAIL}>`,
 
-        subject,
+      to,
 
-        html,
+      subject,
 
-      });
+      html,
 
+    });
 
+    console.log("✅ Email Sent Successfully");
+    console.log("Message ID:", info.messageId);
+    console.log("Accepted:", info.accepted);
+    console.log("Rejected:", info.rejected);
+    console.log("Response:", info.response);
 
+    return true;
 
-      console.log(
-        "Email Sent Successfully"
-      );
+  } catch (error) {
 
-    } catch (error) {
+    console.log("========== EMAIL ERROR ==========");
+    console.log(error);
+    console.log("Message:", error.message);
+    console.log("================================");
 
-      console.log(error);
+    return false;
 
-    }
-  };
+  }
+};
 
-module.exports =
-  sendEmail;
+module.exports = sendEmail;
