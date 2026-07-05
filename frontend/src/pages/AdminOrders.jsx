@@ -12,7 +12,7 @@ function AdminOrders() {
   const fetchOrders = async () => {
     try {
       const { data } = await axios.get(
-        "http://localhost:5000/api/orders/admin/all"
+        `${import.meta.env.VITE_API_URL}/api/orders/admin/all`
       );
 
       setOrders(data);
@@ -27,7 +27,7 @@ function AdminOrders() {
   ) => {
     try {
       await axios.put(
-        `http://localhost:5000/api/orders/status/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/orders/status/${id}`,
         {
           status,
         }

@@ -35,7 +35,7 @@ function OtpLogin() {
         const { data } =
           await axios.post(
 
-            "http://localhost:5000/api/otp/send",
+            `${import.meta.env.VITE_API_URL}/api/otp/send`,
 
             {
 

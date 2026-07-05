@@ -5,6 +5,7 @@ import {
   useDispatch,
 
 } from "react-redux";
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 
@@ -100,7 +101,7 @@ function ProductCard({
 
         await axios.post(
 
-          "http://localhost:5000/api/wishlist",
+          `${API_URL}/api/wishlist`,
 
           {
 

@@ -50,12 +50,12 @@ function AdminAnalytics() {
 
         const orderRes =
           await axios.get(
-            "http://localhost:5000/api/orders/admin/all"
+            `${import.meta.env.VITE_API_URL}/api/orders/admin/all`
           );
 
         const productRes =
           await axios.get(
-            "http://localhost:5000/api/products"
+            `${import.meta.env.VITE_API_URL}/api/products`
           );
 
         setOrders(

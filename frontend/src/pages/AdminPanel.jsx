@@ -56,7 +56,7 @@ function AdminPanel() {
 
         const { data } =
           await axios.get(
-            "http://localhost:5000/api/products"
+            `${import.meta.env.VITE_API_URL}/api/products`
           );
 
         setProducts(data);
@@ -79,7 +79,7 @@ function AdminPanel() {
         if (editingId) {
 
           await axios.put(
-  `http://localhost:5000/api/products/${editingId}`,
+  `${import.meta.env.VITE_API_URL}/api/products/${editingId}`,
   {
     title,
     description,
@@ -100,7 +100,7 @@ function AdminPanel() {
         } else {
 
           await axios.post(
-  "http://localhost:5000/api/products",
+  `${import.meta.env.VITE_API_URL}/api/products`,
   {
     title,
     description,

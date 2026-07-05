@@ -37,7 +37,7 @@ function AdminDashboard() {
       try {
         const { data } =
           await axios.get(
-            "http://localhost:5000/api/products"
+            `${import.meta.env.VITE_API_URL}/api/products`
           );
 
         setProducts(data);
@@ -51,7 +51,7 @@ function AdminDashboard() {
       try {
         const { data } =
           await axios.get(
-            "http://localhost:5000/api/orders/admin/all"
+            `${import.meta.env.VITE_API_URL}/api/orders/admin/all`
           );
 
         setOrders(data);

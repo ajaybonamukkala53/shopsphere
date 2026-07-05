@@ -1,194 +1,174 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 const placeOrder = async () => {
+  try {
 
-try {
-
-```
-if (
-  !name ||
-  !phone ||
-  !address ||
-  !pincode
-) {
-
-  alert(
-    "Please fill all delivery details"
-  );
-
-  return;
-}
-
-const user =
-  JSON.parse(
-    localStorage.getItem(
-      "user"
-    )
-  );
-
-if (!user) {
-
-  alert(
-    "Please Login First"
-  );
-
-  return;
-}
-
-// CREATE RAZORPAY ORDER
-
-const { data } =
-  await axios.post(
-    "http://localhost:5000/api/payment/create-order",
-    {
-      amount: totalPrice,
-    }
-  );
-
-const options = {
-
-  key:
-    "rzp_test_SuiC4XnCGvntxx",
-
-  amount:
-    data.amount,
-
-  currency:
-    data.currency,
-
-  name:
-    "ShopSphere",
-
-  description:
-    "Order Payment",
-
-  order_id:
-    data.id,
-
-  handler:
-    async function (
-      response
+    if (
+      !name ||
+      !phone ||
+      !address ||
+      !pincode
     ) {
+      alert(
+        "Please fill all delivery details"
+      );
+      return;
+    }
 
-      try {
+    const user =
+      JSON.parse(
+        localStorage.getItem(
+          "user"
+        )
+      );
 
-        await axios.post(
-          "http://localhost:5000/api/orders",
-          {
-            products:
-              cartItems,
+    if (!user) {
+      alert(
+        "Please Login First"
+      );
+      return;
+    }
 
-            totalPrice,
+    // CREATE RAZORPAY ORDER
 
-            userEmail:
-              user.email,
+    const { data } =
+      await axios.post(
+        `${API_URL}/api/payment/create-order`,
+        {
+          amount: totalPrice,
+        }
+      );
 
-            paymentMethod:
-              "Online",
+    const options = {
+      key:
+        "rzp_test_SuiC4XnCGvntxx",
 
-            paymentStatus:
-              "Paid",
+      amount:
+        data.amount,
 
-            orderStatus:
-              "Order Placed",
+      currency:
+        data.currency,
 
-            razorpayPaymentId:
-              response.razorpay_payment_id,
+      name:
+        "ShopSphere",
 
-            address: {
-              name,
-              phone,
-              address,
-              pincode,
-            },
+      description:
+        "Order Payment",
+
+      order_id:
+        data.id,
+
+      handler:
+        async function (
+          response
+        ) {
+
+          try {
+
+            await axios.post(
+              `${API_URL}/api/orders`,
+              {
+                products:
+                  cartItems,
+
+                totalPrice,
+
+                userEmail:
+                  user.email,
+
+                paymentMethod:
+                  "Online",
+
+                paymentStatus:
+                  "Paid",
+
+                orderStatus:
+                  "Order Placed",
+
+                razorpayPaymentId:
+                  response.razorpay_payment_id,
+
+                address: {
+                  name,
+                  phone,
+                  address,
+                  pincode,
+                },
+              }
+            );
+
+            dispatch(
+              clearCart()
+            );
+
+            navigate(
+              "/payment-success"
+            );
+
+          } catch (error) {
+
+            console.log(error);
+
+            alert(
+              "Order Creation Failed ❌"
+            );
+
           }
-        );
 
-        dispatch(
-          clearCart()
-        );
+        },
 
-        navigate(
-          "/payment-success"
-        );
+      prefill: {
+        name,
+        email:
+          user.email,
+        contact:
+          phone,
+      },
 
-      } catch (error) {
+      theme: {
+        color:
+          "#000000",
+      },
+    };
 
-        console.log(error);
+    if (
+      !window.Razorpay
+    ) {
+      alert(
+        "Razorpay SDK Not Loaded"
+      );
+      return;
+    }
 
+    const razorpay =
+      new window.Razorpay(
+        options
+      );
+
+    razorpay.on(
+      "payment.failed",
+      function (
+        response
+      ) {
         alert(
-          "Order Creation Failed ❌"
+          "Payment Failed ❌"
         );
 
+        console.log(
+          response.error
+        );
       }
+    );
 
-    },
+    razorpay.open();
 
-  prefill: {
+  } catch (error) {
 
-    name,
-
-    email:
-      user.email,
-
-    contact:
-      phone,
-
-  },
-
-  theme: {
-
-    color:
-      "#000000",
-
-  },
-
-};
-
-if (
-  !window.Razorpay
-) {
-
-  alert(
-    "Razorpay SDK Not Loaded"
-  );
-
-  return;
-}
-
-const razorpay =
-  new window.Razorpay(
-    options
-  );
-
-razorpay.on(
-  "payment.failed",
-  function (
-    response
-  ) {
+    console.log(error);
 
     alert(
       "Payment Failed ❌"
     );
 
-    console.log(
-      response.error
-    );
-
   }
-);
-
-razorpay.open();
-```
-
-} catch (error) {
-
-```
-console.log(error);
-
-alert(
-  "Payment Failed ❌"
-);
-```
-
-}
-
 };
