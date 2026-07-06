@@ -1,68 +1,58 @@
 require("dotenv").config();
 
-const nodemailer = require("nodemailer");
+const axios = require("axios");
 
-const sendEmail = async (
-  to,
-  subject,
-  html
-) => {
+const sendEmail = async (to, subject, html) => {
   try {
 
-    const transporter = nodemailer.createTransport({
+    console.log("API KEY EXISTS:", !!process.env.BREVO_API_KEY);
+    console.log("API KEY PREFIX:", process.env.BREVO_API_KEY?.substring(0,8));
 
-      host: "smtp-relay.brevo.com",
+    const response = await axios({
 
-      port: 587,
+      method: "post",
 
-      secure: false,
+      url: "https://api.brevo.com/v3/smtp/email",
 
-      auth: {
+      headers: {
 
-        user: process.env.BREVO_EMAIL,
+        accept: "application/json",
 
-        pass: process.env.BREVO_SMTP_KEY,
+        "content-type": "application/json",
+
+        "api-key": process.env.BREVO_API_KEY,
 
       },
 
-      connectionTimeout: 30000,
+      data: {
 
-      greetingTimeout: 30000,
+        sender: {
+          name: "ShopSphere",
+          email: process.env.FROM_EMAIL,
+        },
 
-      socketTimeout: 30000,
+        to: [
+          {
+            email: to,
+          },
+        ],
 
-    });
+        subject,
 
-    // Verify SMTP Connection
-    await transporter.verify();
+        htmlContent: html,
 
-    console.log("✅ Brevo SMTP Connected");
-
-    const info = await transporter.sendMail({
-
-      from: `"ShopSphere" <${process.env.FROM_EMAIL}>`,
-
-      to,
-
-      subject,
-
-      html,
+      },
 
     });
 
-    console.log("✅ Email Sent Successfully");
-    console.log("Message ID:", info.messageId);
-    console.log("Accepted:", info.accepted);
-    console.log("Rejected:", info.rejected);
-    console.log("Response:", info.response);
+    console.log(response.data);
 
     return true;
 
   } catch (error) {
 
-    console.log("========== EMAIL ERROR ==========");
-    console.log(error);
-    console.log("Message:", error.message);
+    console.log("================================");
+    console.log(error.response?.data);
     console.log("================================");
 
     return false;
